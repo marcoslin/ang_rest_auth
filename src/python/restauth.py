@@ -10,7 +10,7 @@ import time, random, hashlib, base64
 from functools import wraps
 from flask import request, Response, redirect
 from auth.providers import AuthProviders
-
+import logging
 import json
 
 class AuthDB(object):
@@ -77,8 +77,8 @@ class AuthDB(object):
 class Authenticator(object):
     AUTH_KEY = "Authorization"
 
-    def __init__(self, logger):
-        self._logger = logger
+    def __init__(self):
+        self._logger = logging.getLogger('logger')
         self._db = AuthDB()
         self._ap = AuthProviders()
 

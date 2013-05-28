@@ -29,7 +29,7 @@ class BaseProvider(object):
     _user_info = None
     
     # ToDo: figure out how to remove this hard coding bit
-    OAUTH_REPLY_URL_BASE = "http://kindalikeme.com:8056/auth/oauth_reply/"
+    OAUTH_REPLY_URL_BASE = "http://kindalikeme.com:5000/auth/oauth_reply/"
     _oauth_reply_url = None
     
     '''
