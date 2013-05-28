@@ -5,6 +5,7 @@ from flask import Flask, redirect, send_from_directory
 import auth_service
 import util_service
 import json_service
+import http_basic_auth_service
 
 
 #from routes.auth.cust_auth import route_auth
@@ -27,7 +28,8 @@ app.config.from_object('config.DevelopmentConfig')
 #auth_route = BasicAuthRoute()
 
 
-app.register_blueprint(auth_service.blueprint, url_prefix="/auth")
+#app.register_blueprint(auth_service.blueprint, url_prefix="/auth")
+app.register_blueprint(http_basic_auth_service.blueprint, url_prefix="/auth")
 app.register_blueprint(util_service.blueprint, url_prefix="/util")
 app.register_blueprint(json_service.blueprint, url_prefix="/json")
 

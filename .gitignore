@@ -12,3 +12,4 @@ pyenv/
 .idea/
 .project
 .pydevproject
+.settings/
