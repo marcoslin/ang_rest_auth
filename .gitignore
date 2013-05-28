@@ -1,0 +1,14 @@
+node_modules
+dist
+.tmp
+.sass-cache
+pyenv/
+
+# Python files
+*.pyc
+*.pyo
+
+# Ignore Project Files
+.idea/
+.project
+.pydevproject

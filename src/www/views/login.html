@@ -1,0 +1,21 @@
+<div class="hero-unit">
+    <h1>Login Required.</h1>
+    <form name="login" ng-submit="doLogin();">
+        <fieldset>
+            <ul>
+                <li>
+                    <label for="user_id">User: </label><input id="user_id" type="text" ng-model="user_id" />
+                </li>
+                <li>
+                    <label for="password">Password: </label><input id="password" type="password" ng-model="password" />
+                </li>
+                <li>
+                    <label>Status: {{ messageStatus }}</label>
+                </li>
+            </ul>
+        </fieldset>
+        <button id="submit" class="btn btn-primary" type="submit">Login</button>
+    </form>
+    <button class="btn" ng-click="login_oauth('twitter-oauth')">Twitter Login</button>
+    <button class="btn" ng-click="login_oauth('facebook-oauth2')">Facebook Login</button>
+</div>
