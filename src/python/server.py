@@ -6,11 +6,9 @@ import auth_service
 import util_service
 import json_service
 
+
 #from routes.auth.cust_auth import route_auth
 #from routes.auth.http_basic_auth import BasicAuthRoute
-
-
-
 
 # ========================================
 # INITIALIZATION
@@ -18,6 +16,7 @@ import json_service
 # Define static path
 http_root = os.path.abspath( os.path.join(os.path.dirname(__file__), "../www") )
 app = Flask(__name__,static_folder=http_root, static_url_path="/app")
+app.config.from_object('config.DevelopmentConfig')
 
 
 # ========================================
@@ -43,13 +42,12 @@ def app_index():
     return send_from_directory(http_root, "index.html")
 
 
-
 # ========================================
 # START SERVER
 if __name__ == "__main__":
     app.run(            
-            port = 5000,
-            use_reloader=False,
-            debug = True
+            port = app.config['PORT'],
+            use_reloader=app.config['USE_RELOADER'],
+            debug = app.config['DEBUG']
             )
     
