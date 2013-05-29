@@ -18,7 +18,7 @@ class BasicVerifier():
             user = json_body["user_id"]
             passwd = json_body["password"]
         except (TypeError, KeyError):
-            self.logger.debug("Failed to read user from request.")
+            self._logger.debug("Failed to read user from request.")
             return self.unauthorized()
         
         #if self.db.is_valid_local_user(passwd, user_name=user):
@@ -63,6 +63,18 @@ class BasicVerifier():
             'You have to login with proper credentials', 401,
             auth_challenge_header
         )
+     
+    
+    def is_authorized(self, request):
+        '''Return boolean if user is logged in'''
+        raise NotImplemented()
+    def authenticate(self):
+        '''Requesting authentication'''
+        raise NotImplemented()
+    def unauthorized(self):
+        '''Indicate Unauthorized'''
+        resp = Response("Unauthorized", status=401)
+        return resp
 
 auth = Authenticator()
 blueprint = Blueprint('http_basic_auth', __name__)
