@@ -24,7 +24,7 @@ The main workflow can be summarized as:
 Both `cnonce` and `auth-token` are considered secrete and should only be transmitted during the authentication 
 and only over SSL connection.
 
-Following Quality of Protection (gop) can be configured for XCAUTH:
+Following Quality of Protection (qop) can be configured for XCAUTH:
 
 * `xauth`:    simple XOR based authentication
 * `xauth-nc`: XAUTH with NC
@@ -39,7 +39,7 @@ This is analogous to HTTP Basic Authentication but it does not send password to 
 of `xauth` and `xauth-nc` is to minimize the amount of work on the client side.  This is achieved at expense of
 security in case the `XAUTH` or `auth-token` is intercepted.  As result, HTTPS based communication is required 
 for both Authentication and Access.  For application that performs data modification, the minimum acceptable
-level of `gop` is `xauth-nc`.
+level of `qop` is `xauth-nc`.
 
 As the objective of these 2 basic protocol is to minimize the work on the client size, the `cnonce` is only used
 during Authentication and not during Access.  As `auth-token` is in effect ignored and `nonce` used for Access,
@@ -62,8 +62,8 @@ For example:
 
 #### Authentication
 
-* Client generates `cnonce` and `POST` it with choosen `gop` to server
-* Server generates a `nonce` and associate received `cnonce` and `gop` with it.  Reply with `nonce` and `realm`
+* Client generates `cnonce` and `POST` it with choosen `qop` to server
+* Server generates a `nonce` and associate received `cnonce` and `qop` with it.  Reply with `nonce` and `realm`
 * Client prompt user for username and password, construct `XAUTH` and send to server
 * Server verifies `XAUTH` and reply with user info and `auth-token`
 
@@ -71,18 +71,18 @@ For example:
 
 * Client sends:
   - `nonce`
-  - `NC` -- if gop is set to `xauth-nc`
+  - `NC` -- if qop is set to `xauth-nc`
 
 
 ## `xresp`
 
-This is analogous to HTTP Digest Authentication and build upon `xauth`.  As this `gop` requires `auth-token` for
+This is analogous to HTTP Digest Authentication and build upon `xauth`.  As this `qop` requires `auth-token` for
 Access and `XAUTH` for Token Refresh, client must find a secure way of caching these 2 data and only sending back 
 to the server during the secured Authorization phase.  This should be easy for Native Code clients but for webapp,
 it must rely on localStorage for HTML5 clients or techniques such as [Cookie-less Session][1].  If application loses
 these information, server will respond with "401 Unauthorized" forcing the user to login again.
 
-The primary benefit of this `gop` is to allow for HTTP based Access once user has been authenticated.
+The primary benefit of this `qop` is to allow for HTTP based Access once user has been authenticated.
 
 ### Formula:
 
@@ -130,7 +130,7 @@ persisted in the non-volatile storage such as RDMS or NoSQL on the server side.
 On the other hand, `auth-token` is expected to expire and therefore it is possible to store it in a volatile storage
 such as MEMCACHED or REDIS.
 
-On the client side, if using `gop` of `xresp`, `XAUTH` must be securely stored and only used over HTTPS connections.
+On the client side, if using `qop` of `xresp`, `XAUTH` must be securely stored and only used over HTTPS connections.
 
 In Summary:
 
